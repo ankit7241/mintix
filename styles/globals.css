@@ -1,9 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: poppins, Space Grotesk, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+  background-color: "#0A0B0D";
 }
 
 a {
@@ -13,6 +21,8 @@ a {
 
 * {
   box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +33,12 @@ a {
     color: white;
     background: black;
   }
+}
+
+.SpaceGrotesk {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.Poppins {
+  font-family: "Poppins", sans-serif;
 }
