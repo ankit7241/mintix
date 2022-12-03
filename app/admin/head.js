@@ -1,8 +1,8 @@
 export default function Head() {
     return (
         <>
-            <title>Mintix</title>
-            <meta name="description" content="Mintix - NFT movie ticketing solution" />
+            <title>Mintix - Admin</title>
+            <meta content="width=device-width, initial-scale=1" name="viewport" />
             <link rel="icon" href="/favicon.ico" />
         </>
     )
