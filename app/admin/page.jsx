@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 
 import GradientButton from "../../components/GradientButton"
 
+import Heading from '../../components/Heading';
+
 export default function Admin() {
 
     const [name, setName] = useState("");
@@ -12,13 +14,8 @@ export default function Admin() {
 
     return (
         <div className="flex flex-col items-center p-0 gap-[50px]">
-            <div className="relative z-20">
-                <h2
-                    className="SpaceGrotesk font-bold text-5xl text-white before:content-[''] before:w-full before:h-[7px] before:absolute before:left-0 before:top-[77%] before:-rotate-[1deg] before:bg-secondaryGradient before:-z-10"
-                >
-                    List your theater
-                </h2>
-            </div>
+            
+            <Heading text="List your theater" size="5xl" />
 
 
             <div className="flex flex-col justify-center items-center p-0 gap-[30px] w-[50%]">
