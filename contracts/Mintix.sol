@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+import "./Tix.sol";
+
 contract Mintix {
     // State Variables
     // Owner of the contract
     address payable public owner;
 
     // Contract address of the Tix NFT
-    address public tixConctractAddress;
+    address public tixContractAddress;
 
     string[] private _cities;
 
@@ -50,7 +52,7 @@ contract Mintix {
     }
 
     // Functions
-    function compare(string memory str1, string memory str2) public pure returns (bool) {
+    function compare(string memory str1, string memory str2) private pure returns (bool) {
         return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
     }
 
@@ -61,7 +63,7 @@ contract Mintix {
 
     // To store the tix NFT Contract Address in state variable
     function saveTixContract(address _tixContractAddress) public onlyOwner {
-        tixConctractAddress = _tixContractAddress;
+        tixContractAddress = _tixContractAddress;
     }
 
     // List theatre in the platform
@@ -123,21 +125,25 @@ contract Mintix {
     }
 
     // Function to mint Tix
-    function mintTix(string memory sId, uint256[] memory seatNumbers) public {
+    function mintTix(string memory sId, uint256[] memory seatNumbers, uint256 tokenId) public {
         // Step1: Call Tix contract function to mint NFT
+        Tix(tixContractAddress).mint(msg.sender, tokenId);
 
         // Step2: Update the seatOccupancyStatus to true
         for (uint256 i = 0; i < seatNumbers.length; i++) {
+            require(_seatsStatusOfShow[sId][seatNumbers[i]] == false, "Seats are already minted");
             _seatsStatusOfShow[sId][seatNumbers[i]] = true;
         }
     }
 
     // Function to burn Tix
-    function burnTix(string memory sId, uint256[] memory seatNumbers) public {
+    function burnTix(string memory sId, uint256[] memory seatNumbers, uint256 tokenId) public {
         // Step1: Call Tix contract function to burn NFT
+        Tix(tixContractAddress).burn(tokenId);
 
         // Step2: Update the seatOccupancyStatus to false
         for (uint256 i = 0; i < seatNumbers.length; i++) {
+            require(_seatsStatusOfShow[sId][seatNumbers[i]] == true, "Seats are empty");
             _seatsStatusOfShow[sId][seatNumbers[i]] = false;
         }
     }
