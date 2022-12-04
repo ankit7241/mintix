@@ -10,15 +10,58 @@ export default function AddMovieModal({ setModalOpen, modalOpen }) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [screenNo, setScreenNo] = useState("");
-    const [platinumPrice, setPlatinumPrice] = useState("");
-    const [goldPrice, setGoldPrice] = useState("");
-    const [silverPrice, setSilverPrice] = useState("");
+    const [platinumPrice, setPlatinumPrice] = useState(0);
+    const [goldPrice, setGoldPrice] = useState(0);
+    const [silverPrice, setSilverPrice] = useState(0);
     const [startingDate, setStartingDate] = useState("");
     const [totalShows, setTotalShows] = useState("");
     const [timeSlot, setTimeSlot] = useState("");
     const [poster, setPoster] = useState("");
     const [thumbnail, setThumbnail] = useState("");
     const [trailerLink, setTrailerLink] = useState("");
+
+
+    function getAccessToken () {
+        return process.env.WEB3STORAGE_TOKEN
+      }
+      
+      function makeStorageClient () {
+        return new Web3Storage({ token: getAccessToken() })
+      }
+
+    async function makeFileObjects (name,city,location) {
+  
+        const obj = { fname: `${name}`,
+                      fdescription: `${description}`, 
+                      fscreenNo: `${screenNo}`,
+                      fplatinumPrice: `${platinumPrice}`,
+                      fgoldPrice: `${goldPrice}`,
+                      fsilverPrice: `${silverPrice}`,
+                      fstartingDate: `${startingDate}`,
+                      ftotalShows: `${totalShows}`,
+                      ftimeSlot: `${timeSlot}`,
+                      fposter: `${poster}`,
+                      fthumbnail: `${thumbnail}`,
+                      ftrailerLink: `${trailerLink}`
+                    }
+        const blob = new Blob([JSON.stringify(obj)], { type: 'application/json' })
+      
+        const files = [
+          new File([blob], 'xyz.json')
+        ]
+        return files
+      }
+
+
+    async function storeFiles () {
+        const files= await makeFileObjects(name,description,screenNo,platinumPrice,goldPrice,silverPrice,startingDate,totalShows,timeSlot,poster,thumbnail,trailerLink);
+        const client = makeStorageClient()
+        const cid = await client.put(files,{wrapWithDirectory : false})
+        console.log('stored files with cid:', cid)
+        return cid
+      }
+  
+
 
 
     return (

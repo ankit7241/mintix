@@ -14,7 +14,7 @@ export default function Admin() {
         <>
             {
                 isConnected
-                    ? address === "0xbdfC42145aF525009d3eE7027036777Ed96BF6A4"
+                    ? address === "0x61B8A9baFda51De880254d509Aa6B3f12920df25"
                         ? <Registered />
                         : <NotRegistered />
                     : <p className="text-4xl font-bold text-white h-full w-full text-center">Please connect your wallet</p>
